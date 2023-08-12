@@ -6,6 +6,12 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
+    interface GraphMaker {
+        "height": number;
+        "mapData": any;
+        "sacling": number;
+        "width": number;
+    }
     interface MyComponent {
         /**
           * The first name
@@ -22,6 +28,12 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLGraphMakerElement extends Components.GraphMaker, HTMLStencilElement {
+    }
+    var HTMLGraphMakerElement: {
+        prototype: HTMLGraphMakerElement;
+        new (): HTMLGraphMakerElement;
+    };
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
     }
     var HTMLMyComponentElement: {
@@ -29,10 +41,17 @@ declare global {
         new (): HTMLMyComponentElement;
     };
     interface HTMLElementTagNameMap {
+        "graph-maker": HTMLGraphMakerElement;
         "my-component": HTMLMyComponentElement;
     }
 }
 declare namespace LocalJSX {
+    interface GraphMaker {
+        "height"?: number;
+        "mapData"?: any;
+        "sacling"?: number;
+        "width"?: number;
+    }
     interface MyComponent {
         /**
           * The first name
@@ -48,6 +67,7 @@ declare namespace LocalJSX {
         "middle"?: string;
     }
     interface IntrinsicElements {
+        "graph-maker": GraphMaker;
         "my-component": MyComponent;
     }
 }
@@ -55,6 +75,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "graph-maker": LocalJSX.GraphMaker & JSXBase.HTMLAttributes<HTMLGraphMakerElement>;
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
         }
     }
